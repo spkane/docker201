@@ -1,0 +1,5 @@
+FROM scratch
+ADD ca-certificates.crt /etc/ssl/certs/
+ADD outyet /
+EXPOSE 8088
+CMD ["/outyet", "-version", "1.8", "-poll", "600s", "-http", ":8088"]

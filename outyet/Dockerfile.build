@@ -1,0 +1,10 @@
+FROM golang:1.7.5
+COPY . /go/src/outyet
+WORKDIR /go/src/outyet
+ENV CGO_ENABLED=0
+ENV GOOS=linux
+RUN go get -v -d && \
+    go install -v && \
+    go test -v && \
+    go build -ldflags "-s" -a -installsuffix cgo -o outyet .
+
