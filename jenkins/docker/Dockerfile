@@ -43,6 +43,7 @@ RUN /usr/local/bin/install-plugins.sh \
       ldap:1.15 \
       mailer:1.20 \
       mapdb-api:1.0.9.0 \
+      mask-passwords:2.10.1 \
       matrix-auth:1.6 \
       matrix-project:1.11 \
       momentjs:1.1.1 \

@@ -2,6 +2,18 @@ openssl
 htpasswd (myuser - myuser-pw!)
 docker login localhost:5000
 
+cogs:
+postgres server: postgres:5432
+ssh port - 10022
+http port - 3000
+URL: http://localhost:10080/
+Enable console mode
+add user
+create ssh key
+add repo
+
+mkdir -p ~/docker-class-201/postgres/data/data
+
 Disk space
 
 https://docs.docker.com/registry/insecure/#using-self-signed-certificates
@@ -13,6 +25,19 @@ jenkins - install custom plugins - select none - then install
 create user
 
 cp -a jenkins/jobs/outyet jenkins/data/jobs/
+
+
+cp -a ./layout/outyet ./code/outyet
+cd ./code/outyet
+git add .
+git commit -m "first commit"
+git remote add origin ssh://git@localhost:10022/myuser/outyet.git
+ssh-keygen -R [localhost]:10022
+git push -u origin master
+
+cogs:
+ webhook:
+  payload url: http://jenkins:8080/gogs-webhook/?job=outyet
 
 
 
