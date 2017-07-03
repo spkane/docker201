@@ -4,9 +4,8 @@ gogs/data/*
 gogs/logs/*
 registry/data/*
 jenkins/data/*
-postgres/data/.git_keep
+!postgres/data/.git_keep
 !gogs/data/.git_keep
 !gogs/logs/.git_keep
 !registry/data/.git_keep
 !jenkins/data/.git_keep
-!jenkins_data/.git_keep

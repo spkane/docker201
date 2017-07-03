@@ -1,0 +1,33 @@
+version: "3"
+services:
+  postgres:
+    container_name: class_postgres_2
+    image: postgres:9.6.3
+    restart: unless-stopped
+    networks:
+      - my-net
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_USER: "myuser"
+      POSTGRES_PASSWORD: "myuser-pw!"
+      POSTGRES_DB: "gogs"
+    volumes:
+     - "~/docker-class-201/layout/postgres/data/data:/var/lib/postgresql/data"
+  gogs:
+    container_name: class_gogs_2
+    image: gogs/gogs:0.11.19
+    restart: unless-stopped
+    networks:
+      - my-net
+    depends_on:
+      - postgres
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+     - "~/docker-class-201/layout/gogs/data:/data"
+     - "~/docker-class-201/layout/gogs/logs:/app/gogs/log"
+networks:
+  my-net:
+    driver: bridge

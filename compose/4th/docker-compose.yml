@@ -1,0 +1,65 @@
+version: "3"
+services:
+  postgres:
+    container_name: class_postgres_4
+    image: postgres:9.6.3
+    restart: unless-stopped
+    networks:
+      - my-net
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_USER: "myuser"
+      POSTGRES_PASSWORD: "myuser-pw!"
+      POSTGRES_DB: "gogs"
+    volumes:
+     - "~/docker-class-201/layout/postgres/data/data:/var/lib/postgresql/data"
+  gogs:
+    container_name: class_gogs_4
+    image: gogs/gogs:0.11.19
+    restart: unless-stopped
+    networks:
+      - my-net
+    depends_on:
+      - postgres
+    ports:
+      - "10022:22"
+      - "10080:3000"
+    volumes:
+     - "~/docker-class-201/layout/gogs/data:/data"
+     - "~/docker-class-201/layout/gogs/logs:/app/gogs/log"
+  registry:
+    container_name: class_registry_4
+    image: registry:2.6.1
+    restart: unless-stopped
+    networks:
+      - my-net
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
+      REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
+      REGISTRY_HTTP_SECRET: "iuehfio73bt8dobq"
+    volumes:
+     - "~/docker-class-201/layout/registry/config.yml:/etc/docker/registry/config.yml"
+     - "~/docker-class-201/layout/registry/data:/var/lib/registry"
+     - "~/docker-class-201/layout/registry/certs:/certs"
+     - "~/docker-class-201/layout/registry/htpasswd:/htpasswd"
+  jenkins:
+    container_name: class_jenkins_4
+    build: 
+      context: ../../jenkins/docker
+    image: 127.0.0.1:5000/myuser/jenkins-class:latest
+    restart: unless-stopped
+    networks:
+      - my-net
+    ports:
+      - "10081:8080"
+      - "50000:50000"
+    volumes:
+     - "~/docker-class-201/layout/jenkins/data:/var/jenkins_home"
+     - "/var/run/docker.sock:/var/run/docker.sock"
+networks:
+  my-net:
+    driver: bridge

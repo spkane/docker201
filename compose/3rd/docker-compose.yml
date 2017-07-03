@@ -1,7 +1,7 @@
 version: "3"
 services:
   postgres:
-    container_name: class_postgres
+    container_name: class_postgres_3
     image: postgres:9.6.3
     restart: unless-stopped
     networks:
@@ -15,7 +15,7 @@ services:
     volumes:
      - "~/docker-class-201/layout/postgres/data/data:/var/lib/postgresql/data"
   gogs:
-    container_name: class_gogs
+    container_name: class_gogs_3
     image: gogs/gogs:0.11.19
     restart: unless-stopped
     networks:
@@ -29,7 +29,7 @@ services:
      - "~/docker-class-201/layout/gogs/data:/data"
      - "~/docker-class-201/layout/gogs/logs:/app/gogs/log"
   registry:
-    container_name: class_registry
+    container_name: class_registry_3
     image: registry:2.6.1
     restart: unless-stopped
     networks:
@@ -40,25 +40,12 @@ services:
     environment:
       REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/domain.crt"
       REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
+      REGISTRY_HTTP_SECRET: "iuehfio73bt8dobq"
     volumes:
      - "~/docker-class-201/layout/registry/config.yml:/etc/docker/registry/config.yml"
      - "~/docker-class-201/layout/registry/data:/var/lib/registry"
      - "~/docker-class-201/layout/registry/certs:/certs"
      - "~/docker-class-201/layout/registry/htpasswd:/htpasswd"
-  jenkins:
-    container_name: class_jenkins
-    build: 
-      context: ./jenkins/docker
-    image: spkane/jenkins-class:latest
-    restart: unless-stopped
-    networks:
-      - my-net
-    ports:
-      - "10081:8080"
-      - "50000:50000"
-    volumes:
-     - "~/docker-class-201/layout/jenkins/data:/var/jenkins_home"
-     - "/var/run/docker.sock:/var/run/docker.sock"
 networks:
   my-net:
     driver: bridge

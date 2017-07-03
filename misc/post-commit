@@ -1,7 +1,0 @@
-#!/bin/sh
-
-branch=$(git rev-parse --symbolic --abbrev-ref HEAD)
-sha=$(git rev-parse HEAD)
-
-curl http://$(docker-machine ip testing):8080/git/notifyCommit?url=file:///home/jenkins/git&branches=${branch}&sha1=${sha}
-

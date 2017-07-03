@@ -1,0 +1,11 @@
+version: "3"
+services:
+  outyet:
+    image: spkane/outyet
+    ports:
+      - "10088:18088"
+    networks:
+      - my-net
+networks:
+  my-net:
+    driver: bridge
