@@ -8,7 +8,7 @@
     <configVersion>2</configVersion>
     <userRemoteConfigs>
       <hudson.plugins.git.UserRemoteConfig>
-        <url>http://gogs:3000/mysuer/outyet.git</url>
+        <url>http://gogs:3000/myuser/outyet.git</url>
       </hudson.plugins.git.UserRemoteConfig>
     </userRemoteConfigs>
     <branches>

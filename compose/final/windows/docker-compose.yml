@@ -9,11 +9,9 @@ services:
     ports:
       - "15432:5432"
     environment:
-      POSTGRES_USER: "myuser"
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "myuser-pw!"
       POSTGRES_DB: "gogs"
-    volumes:
-     - "~/docker-class-201/layout/postgres/data/data:/var/lib/postgresql/data"
   gogs:
     container_name: class_gogs_4
     image: gogs/gogs:0.11.19
@@ -49,7 +47,7 @@ services:
   jenkins:
     container_name: class_jenkins_4
     build: 
-      context: ../../jenkins/docker
+      context: ../../../jenkins/docker
     image: 127.0.0.1:5000/myuser/jenkins-class:latest
     restart: unless-stopped
     networks:

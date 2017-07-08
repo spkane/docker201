@@ -1,4 +1,4 @@
-FROM jenkinsci/jenkins:2.65
+FROM jenkinsci/jenkins:2.68
 USER root
 RUN apt-get -y update && \
     apt-get -y install apt-transport-https \
@@ -52,12 +52,13 @@ RUN /usr/local/bin/install-plugins.sh \
       pipeline-graph-analysis:1.4 \
       pipeline-input-step:2.7 \
       pipeline-milestone-step:1.3.1 \
-      pipeline-model-api:1.1.6 \
+      pipeline-model-api:1.1.8 \
       pipeline-model-declarative-agent:1.1.1 \
-      pipeline-model-definition:1.1.6 \
+      pipeline-model-definition:1.1.8 \
+      pipeline-model-extensions:1.1.8 \
       pipeline-rest-api:2.8 \
       pipeline-stage-step:2.2 \
-      pipeline-stage-tags-metadata:1.1.6 \
+      pipeline-stage-tags-metadata:1.1.8 \
       pipeline-stage-view:2.8 \
       plain-credentials:1.4 \
       resource-disposer:0.6 \
