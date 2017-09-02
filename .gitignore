@@ -4,6 +4,7 @@ gogs/data/*
 gogs/logs/*
 registry/data/*
 jenkins/data/*
+terraform/terraform.tfstate*
 !postgres/data/.git_keep
 !gogs/data/.git_keep
 !gogs/logs/.git_keep

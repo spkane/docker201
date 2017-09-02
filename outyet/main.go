@@ -25,6 +25,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"sync"
 	"time"
 )
@@ -40,8 +41,13 @@ const baseChangeURL = "https://go.googlesource.com/go/+/"
 
 func main() {
 	flag.Parse()
+	hostname, err := os.Hostname()
+	if err != nil {
+		panic(err)
+	}
+
 	changeURL := fmt.Sprintf("%sgo%s", baseChangeURL, *version)
-	http.Handle("/", NewServer(*version, changeURL, *pollPeriod))
+	http.Handle("/", NewServer(*version, changeURL, hostname, *pollPeriod))
 	log.Fatal(http.ListenAndServe(*httpAddr, nil))
 }
 
@@ -58,17 +64,18 @@ var (
 // It serves the user interface (it's an http.Handler)
 // and polls the remote repository for changes.
 type Server struct {
-	version string
-	url     string
-	period  time.Duration
+	version  string
+	url      string
+	hostname string
+	period   time.Duration
 
 	mu  sync.RWMutex // protects the yes variable
 	yes bool
 }
 
 // NewServer returns an initialized outyet server.
-func NewServer(version, url string, period time.Duration) *Server {
-	s := &Server{version: version, url: url, period: period}
+func NewServer(version, url string, hostname string, period time.Duration) *Server {
+	s := &Server{version: version, url: url, hostname: hostname, period: period}
 	go s.poll()
 	return s
 }
@@ -110,12 +117,14 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	hitCount.Add(1)
 	s.mu.RLock()
 	data := struct {
-		URL     string
-		Version string
-		Yes     bool
+		URL      string
+		Version  string
+		Hostname string
+		Yes      bool
 	}{
 		s.url,
 		s.version,
+		s.hostname,
 		s.yes,
 	}
 	s.mu.RUnlock()
@@ -138,5 +147,6 @@ var tmpl = template.Must(template.New("tmpl").Parse(`
 		<a href="https://github.com/golang/go/releases">https://github.com/golang/go/releases</a>
 	{{end}}
 	</h1>
+	<p>Hostname: {{.Hostname}}</p>
 </center></body></html>
 `))
