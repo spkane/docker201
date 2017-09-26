@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   postgres:
     container_name: class_postgres_4

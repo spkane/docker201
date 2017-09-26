@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 services:
   postgres:
     container_name: class_postgres_1
@@ -9,7 +9,7 @@ services:
     ports:
       - "15432:5432"
     environment:
-      POSTGRES_USER: "myuser"
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "myuser-pw!"
       POSTGRES_DB: "gogs"
     volumes:
