@@ -48,7 +48,7 @@ services:
      - "~/docker-class-201/layout/registry/htpasswd:/htpasswd"
   jenkins:
     container_name: class_jenkins_4
-    build: 
+    build:
       context: ../../../jenkins/docker
     image: 127.0.0.1:5000/myuser/jenkins-class:latest
     restart: unless-stopped
