@@ -6,7 +6,7 @@ for i in $(echo $workers | sed "s/,/ /g")
 do
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null  -o "BatchMode=yes" -i ~/.ssh/oreilly_aws ubuntu@${i} "sudo docker swarm join --token ${SWARM_TOKEN} ${manager}:2377"
 done
-i
+
 echo
 echo "Test your setup with:"
 echo
