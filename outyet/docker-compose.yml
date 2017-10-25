@@ -1,7 +1,7 @@
-version: "3"
+version: "2"
 services:
   outyet:
-    image: spkane/outyet
+    image: spkane/outyet:1.8_3
     ports:
       - "10088:18088"
     networks:
