@@ -1,9 +1,11 @@
 FROM jenkinsci/jenkins:2.68
 USER root
+COPY 99fixbadproxy /etc/apt/apt.conf.d/99fixbadproxy
 RUN apt-get -y update && \
     apt-get -y install apt-transport-https \
       make && \
     curl -fsSL https://yum.dockerproject.org/gpg | apt-key add - && \
+    apt-get -y update && \
     apt-get -y install software-properties-common && \
     add-apt-repository \
       "deb https://apt.dockerproject.org/repo/ debian-$(lsb_release -cs) main" && \
@@ -47,7 +49,6 @@ RUN /usr/local/bin/install-plugins.sh \
       matrix-auth:1.6 \
       matrix-project:1.11 \
       momentjs:1.1.1 \
-      pam-auth:1.3 \
       pipeline-build-step:2.5 \
       pipeline-graph-analysis:1.4 \
       pipeline-input-step:2.7 \
@@ -67,10 +68,8 @@ RUN /usr/local/bin/install-plugins.sh \
       ssh-credentials:1.13 \
       ssh-slaves:1.20 \
       structs:1.8 \
-      subversion:2.8 \
       timestamper:1.8.8 \
       token-macro:2.1 \
-      windows-slaves:1.3.1 \
       workflow-aggregator:2.5 \
       workflow-api:2.17 \
       workflow-basic-steps:2.5 \
@@ -83,4 +82,3 @@ RUN /usr/local/bin/install-plugins.sh \
       workflow-step-api:2.11 \
       workflow-support:2.14 \
       ws-cleanup:0.33
-
