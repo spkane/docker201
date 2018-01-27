@@ -19,6 +19,8 @@ services:
     networks:
       - my-net
     depends_on:
+      # https://docs.docker.com/compose/compose-file/compose-file-v2/#depends_on
+      # https://docs.docker.com/compose/compose-file/compose-file-v2/#healthcheck
       - postgres
     ports:
       - "10022:22"
