@@ -16,7 +16,7 @@ if ($confirmation -eq 'yes') {
   rm "$BASE/layout/gogs/data/git" -r -fo
   rm "$BASE/layout/gogs/data/gogs" -r -fo
   rm "$BASE/layout/gogs/data/ssh" -r -fo
-  cp  "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/jenkins/data/.git_keep"
+  cp "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/jenkins/data/.git_keep"
   Write-Host "completed"
 } else {
   Write-Host "aborted"

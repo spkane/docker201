@@ -11,7 +11,9 @@ if ($confirmation -eq 'yes') {
   rm "$BASE/layout/jenkins/data/*" -r -fo
   rm "$BASE/layout/jenkins/data/.groovy" -r -fo
   rm "$BASE/layout/jenkins/data/.java" -r -fo
-  $null > "$BASE/layout/jenkins/data/.git_keep"  cp  "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/jenkins/data/.git_keep"  Write-Host "completed"
+  cp "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/jenkins/data/.git_keep"
+  Write-Host "completed"
 } else {
   Write-Host "aborted"
 }
+
