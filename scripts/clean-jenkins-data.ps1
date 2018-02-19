@@ -1,6 +1,6 @@
 #!/usr/bin/env powershell
 
-$BASE = "$HOME\docker-class-201"
+$BASE = "$HOME\docker-workshop"
 
 Write-Host "This will reset all the Jenkins data under $BASE !!!"
 Write-Host ""

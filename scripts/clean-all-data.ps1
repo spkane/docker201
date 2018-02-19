@@ -1,6 +1,6 @@
 #!/usr/bin/env powershell
 
-$BASE = "$HOME\docker-class-201"
+$BASE = "$HOME\docker-workshop"
 
 Write-Host "This will reset all the class data under $BASE !!!"
 Write-Host ""
@@ -8,6 +8,9 @@ Write-Host "Are you sure this is what you want to do?"
 
 $confirmation = Read-Host "You must type 'yes' to confirm: "
 if ($confirmation -eq 'yes') {
+  rm "$BASE/layout/mongodb/data/db" -r -fo
+  rm "$BASE/layout/rocketchat/data/uploads/*" -r -fo
+  rm "$BASE/layout/hubot/data/scripts/*" -r -fo
   rm "$BASE/layout/postgres/data/data" -r -fo
   rm "$BASE/layout/registry/data/docker" -r -fo
   rm "$BASE/layout/jenkins/data/*" -r -fo
