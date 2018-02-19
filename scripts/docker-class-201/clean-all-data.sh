@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE="${HOME}/docker-workshop"
+BASE="${HOME}/docker-class-201"
 
 echo "This will reset all the class data under ${BASE} !!!"
 echo
@@ -8,7 +8,7 @@ echo "Are you sure this is what you want to do?"
 read -p "You must type 'yes' to confirm: " -r
 echo
 if [[ $REPLY == "yes" ]]; then
-  rm -rf ${BASE}/layout/mongodb/data/db
+  rm -rf ${BASE}/layout/mongodb/data/db/*
   rm -rf ${BASE}/layout/rocketchat/data/uploads/*
   rm -rf ${BASE}/layout/hubot/data/scripts/*
   rm -rf ${BASE}/layout/postgres/data/data
