@@ -8,9 +8,6 @@ Write-Host "Are you sure this is what you want to do?"
 
 $confirmation = Read-Host "You must type 'yes' to confirm: "
 if ($confirmation -eq 'yes') {
-  rm "$BASE/layout/mongodb/data/db/*" -r -fo
-  rm "$BASE/layout/rocketchat/data/uploads/*" -r -fo
-  rm "$BASE/layout/hubot/data/scripts/*" -r -fo
   rm "$BASE/layout/postgres/data/data" -r -fo
   rm "$BASE/layout/registry/data/docker" -r -fo
   rm "$BASE/layout/jenkins/data/*" -r -fo
@@ -20,7 +17,6 @@ if ($confirmation -eq 'yes') {
   rm "$BASE/layout/gogs/data/gogs" -r -fo
   rm "$BASE/layout/gogs/data/ssh" -r -fo
   cp "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/jenkins/data/.git_keep"
-  cp "$BASE/layout/postgres/data/.git_keep" "$BASE/layout/mongodb/data/db/.git_keep"
   Write-Host "completed"
 } else {
   Write-Host "aborted"
