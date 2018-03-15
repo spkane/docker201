@@ -47,8 +47,13 @@ func main() {
 	}
 
 	changeURL := fmt.Sprintf("%sgo%s", baseChangeURL, *version)
-	http.Handle("/", NewServer(*version, changeURL, hostname, *pollPeriod))
+	http.Handle("/", NewServer(*version, changeURL, hostname, *pollPeriod, ""))
+	http.Handle("/die", NewServer(*version, changeURL, hostname, *pollPeriod, "die"))
 	log.Fatal(http.ListenAndServe(*httpAddr, nil))
+}
+
+func die() {
+	os.Exit(99)
 }
 
 // Exported variables for monitoring the server.
@@ -67,6 +72,7 @@ type Server struct {
 	version  string
 	url      string
 	hostname string
+	logic    string
 	period   time.Duration
 
 	mu  sync.RWMutex // protects the yes variable
@@ -74,8 +80,8 @@ type Server struct {
 }
 
 // NewServer returns an initialized outyet server.
-func NewServer(version, url string, hostname string, period time.Duration) *Server {
-	s := &Server{version: version, url: url, hostname: hostname, period: period}
+func NewServer(version, url string, hostname string, period time.Duration, logic string) *Server {
+	s := &Server{version: version, url: url, hostname: hostname, period: period, logic: logic}
 	go s.poll()
 	return s
 }
@@ -120,14 +126,19 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		URL      string
 		Version  string
 		Hostname string
+		Logic    string
 		Yes      bool
 	}{
 		s.url,
 		s.version,
 		s.hostname,
+		s.logic,
 		s.yes,
 	}
 	s.mu.RUnlock()
+	if s.logic == "die" {
+		die()
+	}
 	err := tmpl.Execute(w, data)
 	if err != nil {
 		log.Print(err)

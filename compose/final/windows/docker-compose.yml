@@ -49,6 +49,7 @@ services:
     container_name: class_jenkins_4
     build:
       context: ../../../jenkins/docker
+    # If you can't build, use this image: `spkane/dc-201-jenkins:latest`
     image: 127.0.0.1:5000/myuser/jenkins-class:latest
     restart: unless-stopped
     networks:

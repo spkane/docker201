@@ -73,7 +73,7 @@ func TestIntegration(t *testing.T) {
 		pollDone = func() {}
 	}()
 
-	s := NewServer("1.x", ts.URL, "localhost", 1*time.Millisecond)
+	s := NewServer("1.x", ts.URL, "localhost", 1*time.Millisecond, "")
 
 	<-sleep // Wait for poll loop to start sleeping.
 
