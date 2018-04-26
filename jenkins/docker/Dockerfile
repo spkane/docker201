@@ -98,6 +98,6 @@ RUN /usr/local/bin/install-plugins.sh \
 ENV no_proxy gogs
 
 # We really want this to run as the Jenkins user
-# but for class it is challening to get the docker socket
+# but for class it is challenging to get the docker socket
 # permissions correct for every student, so we use root instead.
 USER root
