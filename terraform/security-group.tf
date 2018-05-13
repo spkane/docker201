@@ -22,21 +22,21 @@ resource "aws_security_group" "swarm" {
     from_port = 80
     to_port   = 80
     protocol  = "tcp"
-    cidr_blocks = ["${trimspace(file(var.public_ip_path))}/32"]
+    cidr_blocks = ["${data.external.public_ip.result.public_ip}/32"]
   }
 
   ingress {
     from_port = 8080
     to_port   = 8080
     protocol  = "tcp"
-    cidr_blocks = ["${trimspace(file(var.public_ip_path))}/32"]
+    cidr_blocks = ["${data.external.public_ip.result.public_ip}/32"]
   }
 
     ingress {
     from_port = 2375
     to_port   = 2375
     protocol  = "tcp"
-    cidr_blocks = ["${trimspace(file(var.public_ip_path))}/32"]
+    cidr_blocks = ["${data.external.public_ip.result.public_ip}/32"]
   }
 
   egress {

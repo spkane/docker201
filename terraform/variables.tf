@@ -13,12 +13,18 @@ variable "ssh_public_key_path" {
     default = "/Users/skane/.ssh/oreilly_aws.pub"
 }
 
-variable "public_ip_path" {
-   description = "Path to file containing public IP"
-    default = "/Users/skane/.public_home_ip"
+#variable "public_ip_path" {
+#   description = "Path to file containing public IP"
+#    default = "/Users/skane/.public_home_ip"
+#}
+
+variable "swarm_manager_count" {
+   description = "Number of swarm managers"
+    default = 3
 }
 
 variable "swarm_worker_count" {
    description = "Number of swarm workers"
-    default = 4
+    default = 10
 }
+

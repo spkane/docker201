@@ -4,7 +4,12 @@ provider "aws" {
   region   = "us-east-1"
 }
 
+data "external" "public_ip" {
+  program = ["./bin/local-ip.sh"]
+}
+
 resource "aws_instance" "manager" {
+  count         = "${var.swarm_manager_count}"
   ami           = "ami-835d69f8"
   instance_type = "m4.large"
   security_groups = ["${aws_security_group.swarm.name}"]
@@ -29,12 +34,10 @@ resource "aws_instance" "manager" {
       "sudo cp /tmp/etc-default-docker /etc/default/docker",
       "sudo service docker restart",
       "sudo usermod -aG docker ubuntu",
-      "#sudo docker swarm init",
-      "#sudo docker swarm join-token --quiet worker > /home/ubuntu/token"
     ]
   }
   tags = {
-    Name = "swarm-manager-skane"
+    Name = "swarm-manager-${count.index}-skane"
     Trainer = "Sean P. Kane"
   }
 }
@@ -64,12 +67,10 @@ resource "aws_instance" "worker" {
       "sudo apt-get install -y docker-ce",
       "sudo chmod 400 /home/ubuntu/key.pem",
       "sudo usermod -aG docker ubuntu",
-      "#sudo scp -o StrictHostKeyChecking=no -o NoHostAuthenticationForLocalhost=yes -o UserKnownHostsFile=/dev/null -i key.pem ubuntu@${aws_instance.manager.private_ip}:/home/ubuntu/token .",
-      "#sudo docker swarm join --token $(#cat /home/ubuntu/token) ${aws_instance.manager.private_ip}:2377"
     ]
   }
   tags = {
-    Name = "swarm-${count.index}-skane"
+    Name = "swarm-worker-${count.index}-skane"
     Trainer = "Sean P. Kane"
   }
 }

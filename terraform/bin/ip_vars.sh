@@ -9,12 +9,19 @@ else
   exit 1
 fi
 
-export manager_ip=$(terraform output  | grep manager | cut -d " " -f 3)
+export managers=$(terraform output  | grep manager | cut -d " " -f 3)
 export workers=$(terraform output  | grep worker | cut -d " " -f 3)
 num=0
-export manager_ips=(${manager_ip})
+for i in $(echo $managers | sed "s/,/ /g")
+do
+  all_manager_ips[${num}]=${i}
+  echo "\${all_manager_ips[${num}]}: ${all_manager_ips[${num}]}"
+  let num+=1
+done
+export primary_manager_ip=(${all_manager_ips[0]})
+export secondary_manager_ips=(${all_manager_ips[@]:1})
 export worker_ips=()
-echo "\${manager_ips[${num}]}: ${manager_ips[${num}]}"
+num=0
 for i in $(echo $workers | sed "s/,/ /g")
 do
   worker_ips[${num}]=${i}
