@@ -10,7 +10,7 @@ data "external" "public_ip" {
 
 resource "aws_instance" "manager" {
   count         = "${var.swarm_manager_count}"
-  ami           = "ami-835d69f8"
+  ami           = "ami-5c66ea23"
   instance_type = "m4.large"
   security_groups = ["${aws_security_group.swarm.name}"]
   key_name = "${aws_key_pair.deployer.key_name}"
@@ -19,8 +19,12 @@ resource "aws_instance" "manager" {
     private_key = "${file(var.ssh_private_key_path)}"
   }
   provisioner "file" {
-    source = "./etc-default-docker"
-    destination = "/tmp/etc-default-docker"
+    source = "./files/startup_options.conf"
+    destination = "/tmp/startup_options.conf"
+  }
+  provisioner "file" {
+    source = "./files/daemon.json"
+    destination = "/tmp/daemon.json"
   }
   provisioner "remote-exec" {
     inline = [
@@ -31,9 +35,15 @@ resource "aws_instance" "manager" {
       "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
       "sudo apt-get update",
       "sudo apt-get install -y docker-ce",
-      "sudo cp /tmp/etc-default-docker /etc/default/docker",
-      "sudo service docker restart",
       "sudo usermod -aG docker ubuntu",
+      "wget https://storage.googleapis.com/gvisor/releases/nightly/latest/runsc",
+      "chmod +x runsc",
+      "sudo mv runsc /usr/local/bin",
+      "sudo cp /tmp/daemon.json /etc/docker/daemon.json",
+      "mkdir -p /etc/systemd/system/docker.service.d/",
+      "sudo cp /tmp/startup_options.conf /etc/systemd/system/docker.service.d/startup_options.conf",
+      "sudo systemctl daemon-reload",
+      "sudo service docker restart",
     ]
   }
   tags = {
@@ -44,7 +54,7 @@ resource "aws_instance" "manager" {
 
 resource "aws_instance" "worker" {
   count         = "${var.swarm_worker_count}"
-  ami           = "ami-835d69f8"
+  ami           = "ami-5c66ea23"
   instance_type = "m4.large"
   security_groups = ["${aws_security_group.swarm.name}"]
   key_name = "${aws_key_pair.deployer.key_name}"
@@ -55,6 +65,10 @@ resource "aws_instance" "worker" {
   provisioner "file" {
     source = "${var.ssh_private_key_path}"
     destination = "/home/ubuntu/key.pem"
+  }
+  provisioner "file" {
+    source = "./files/daemon.json"
+    destination = "/tmp/daemon.json"
   }
   provisioner "remote-exec" {
     inline = [
@@ -67,6 +81,11 @@ resource "aws_instance" "worker" {
       "sudo apt-get install -y docker-ce",
       "sudo chmod 400 /home/ubuntu/key.pem",
       "sudo usermod -aG docker ubuntu",
+      "wget https://storage.googleapis.com/gvisor/releases/nightly/latest/runsc",
+      "chmod +x runsc",
+      "sudo mv runsc /usr/local/bin",
+      "sudo cp /tmp/daemon.json /etc/docker/daemon.json",
+      "systemctl restart docker",
     ]
   }
   tags = {
