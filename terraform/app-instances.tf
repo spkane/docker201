@@ -40,7 +40,7 @@ resource "aws_instance" "manager" {
       "chmod +x runsc",
       "sudo mv runsc /usr/local/bin",
       "sudo cp /tmp/daemon.json /etc/docker/daemon.json",
-      "mkdir -p /etc/systemd/system/docker.service.d/",
+      "sudo mkdir -p /etc/systemd/system/docker.service.d/",
       "sudo cp /tmp/startup_options.conf /etc/systemd/system/docker.service.d/startup_options.conf",
       "sudo systemctl daemon-reload",
       "sudo service docker restart",
