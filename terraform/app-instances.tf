@@ -85,7 +85,7 @@ resource "aws_instance" "worker" {
       "chmod +x runsc",
       "sudo mv runsc /usr/local/bin",
       "sudo cp /tmp/daemon.json /etc/docker/daemon.json",
-      "systemctl restart docker",
+      "sudo systemctl restart docker",
     ]
   }
   tags = {
