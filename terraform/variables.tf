@@ -25,6 +25,6 @@ variable "swarm_manager_count" {
 
 variable "swarm_worker_count" {
    description = "Number of swarm workers"
-    default = 10
+    default = 4
 }
 
