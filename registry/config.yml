@@ -15,8 +15,6 @@ storage:
       rootdirectory: /var/lib/registry
 http:
     addr: :5000
-    debug:
-      addr: localhost:5001
     headers:
       X-Content-Type-Options: [nosniff]
 auth:
