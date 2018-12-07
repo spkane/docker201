@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE="${HOME}/docker-class-201"
+BASE="${HOME}/class-docker-cicd"
 
 echo "This will reset all the Jenkins data under ${BASE} !!!"
 echo
