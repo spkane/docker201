@@ -2,7 +2,7 @@ version: "2"
 services:
   postgres:
     container_name: class_postgres_4
-    image: postgres:9.6.3
+    image: postgres:11.1
     restart: unless-stopped
     networks:
       - my-net
@@ -14,7 +14,7 @@ services:
       POSTGRES_DB: "gogs"
   gogs:
     container_name: class_gogs_4
-    image: gogs/gogs:0.11.19
+    image: gogs/gogs:0.11.66
     restart: unless-stopped
     networks:
       - my-net
@@ -29,7 +29,7 @@ services:
      - "~/docker-class-201/layout/gogs/logs:/app/gogs/log"
   registry:
     container_name: class_registry_4
-    image: registry:2.6.1
+    image: registry:2.6.2
     restart: unless-stopped
     networks:
       - my-net

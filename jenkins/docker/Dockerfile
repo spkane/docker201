@@ -1,4 +1,4 @@
-FROM jenkinsci/jenkins:2.90
+FROM jenkinsci/jenkins:2.150.1
 USER root
 
 # If apt-get update fails and you are behind a proxy,
@@ -22,78 +22,87 @@ RUN apt-get -y update && \
     gpasswd -a jenkins docker
 
 USER jenkins
+
+# Get from a running Jenkins: http://127.0.0.1:8080/script
+# Jenkins.instance.pluginManager.plugins.each{plugin -> println ("${plugin.getShortName()}:${plugin.getVersion()}")}
+# We add `gogs-webhook` and `mask-passwords` to the defaults
 RUN /usr/local/bin/install-plugins.sh \
       ace-editor:1.1 \
-      ant:1.7 \
+      ant:1.9 \
       antisamy-markup-formatter:1.5 \
+      apache-httpcomponents-client-4-api:4.5.5-3.0 \
       authentication-tokens:1.3 \
-      bouncycastle-api:2.16.2 \
-      branch-api:2.0.15 \
+      bouncycastle-api:2.17 \
+      branch-api:2.1.2 \
       build-timeout:1.19 \
-      cloudbees-folder:6.2.1 \
-      credentials-binding:1.13 \
-      credentials:2.1.16 \
-      display-url-api:2.1.0 \
-      docker-commons:1.9 \
-      docker-workflow:1.12 \
-      durable-task:1.16 \
-      email-ext:2.61 \
-      embeddable-build-status:1.9 \
-      external-monitor-job:1.7 \
-      git-client:2.6.0 \
+      cloudbees-folder:6.7 \
+      command-launcher:1.2 \
+      credentials-binding:1.17 \
+      credentials:2.1.18 \
+      display-url-api:2.3.0 \
+      docker-commons:1.13 \
+      docker-workflow:1.17 \
+      durable-task:1.28 \
+      email-ext:2.63 \
+      git-client:2.7.4 \
       git-server:1.7 \
-      git:3.6.4 \
-      github-api:1.90 \
-      github:1.27.0 \
-      gogs-webhook:1.0.10 \
-      gradle:1.28 \
+      git:3.9.1 \
+      github-api:1.95 \
+      github-branch-source:2.4.1 \
+      github:1.29.3 \
+      gogs-webhook:1.0.14 \
+      gradle:1.29 \
       handlebars:1.1.1 \
-      icon-shim:2.0.3 \
+      jackson2-api:2.9.7.1 \
+      jdk-tool:1.2 \
       jquery-detached:1.2.1 \
-      junit:1.22.2 \
-      ldap:1.18 \
-      mailer:1.20 \
+      jsch:0.1.54.2 \
+      junit:1.26.1 \
+      ldap:1.20 \
+      lockable-resources:2.3 \
+      mailer:1.22 \
       mapdb-api:1.0.9.0 \
-      mask-passwords:2.10.1 \
-      matrix-auth:2.2 \
-      matrix-project:1.12 \
+      mask-passwords:2.12.0 \
+      matrix-auth:2.3 \
+      matrix-project:1.13 \
       momentjs:1.1.1 \
-      pam-auth:1.3 \
-      pipeline-build-step:2.5.1 \
-      pipeline-graph-analysis:1.4 \
+      pam-auth:1.4 \
+      pipeline-build-step:2.7 \
+      pipeline-github-lib:1.0 \
+      pipeline-graph-analysis:1.9 \
       pipeline-input-step:2.8 \
       pipeline-milestone-step:1.3.1 \
-      pipeline-model-api:1.2.4 \
+      pipeline-model-api:1.3.3 \
       pipeline-model-declarative-agent:1.1.1 \
-      pipeline-model-definition:1.1.8 \
-      pipeline-model-extensions:1.1.8 \
-      pipeline-rest-api:2.8 \
+      pipeline-model-definition:1.3.3 \
+      pipeline-model-extensions:1.3.3 \
+      pipeline-rest-api:2.10 \
       pipeline-stage-step:2.3 \
-      pipeline-stage-tags-metadata:1.2.4 \
-      pipeline-stage-view:2.8 \
+      pipeline-stage-tags-metadata:1.3.3 \
+      pipeline-stage-view:2.10 \
       plain-credentials:1.4 \
-      resource-disposer:0.8 \
-      scm-api:2.2.5 \
-      script-security:1.35 \
-      ssh-credentials:1.13 \
-      ssh-slaves:1.22 \
-      structs:1.10 \
-      subversion:2.9 \
-      timestamper:1.8.8 \
-      token-macro:2.3 \
-      windows-slaves:1.3.1 \
-      workflow-aggregator:2.5 \
-      workflow-api:2.23.1 \
-      workflow-basic-steps:2.6 \
-      workflow-cps-global-lib:2.8 \
-      workflow-cps:2.40 \
-      workflow-durable-task-step:2.17 \
-      workflow-job:2.15 \
-      workflow-multibranch:2.15 \
-      workflow-scm-step:2.6 \
-      workflow-step-api:2.13 \
-      workflow-support:2.16 \
-      ws-cleanup:0.34
+      resource-disposer:0.12 \
+      scm-api:2.3.0 \
+      script-security:1.49 \
+      ssh-credentials:1.14 \
+      ssh-slaves:1.29.1 \
+      structs:1.17 \
+      subversion:2.12.1 \
+      timestamper:1.8.10 \
+      token-macro:2.5 \
+      trilead-api:1.0.1 \
+      workflow-aggregator:2.6 \
+      workflow-api:2.33 \
+      workflow-basic-steps:2.13 \
+      workflow-cps-global-lib:2.12 \
+      workflow-cps:2.61 \
+      workflow-durable-task-step:2.26 \
+      workflow-job:2.30 \
+      workflow-multibranch:2.20 \
+      workflow-scm-step:2.7 \
+      workflow-step-api:2.17 \
+      workflow-support:2.23 \
+      ws-cleanup:0.36
 
 ENV no_proxy gogs
 

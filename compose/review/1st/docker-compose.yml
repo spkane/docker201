@@ -2,7 +2,7 @@ version: "2"
 services:
   postgres:
     container_name: class_postgres_1
-    image: postgres:9.6.3
+    image: postgres:11.1
     restart: unless-stopped
     networks:
       - my-net
@@ -13,7 +13,7 @@ services:
       POSTGRES_PASSWORD: "myuser-pw!"
       POSTGRES_DB: "gogs"
     volumes:
-     - "~/docker-class-201/layout/postgres/data/data:/var/lib/postgresql/data"
+     - "../../../postgres/data/data:/var/lib/postgresql/data"
 networks:
   my-net:
     driver: bridge
