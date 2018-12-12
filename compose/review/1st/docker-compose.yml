@@ -12,6 +12,11 @@ services:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "myuser-pw!"
       POSTGRES_DB: "gogs"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "gogs"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     volumes:
      - "../../../postgres/data/data:/var/lib/postgresql/data"
 networks:
