@@ -46,9 +46,9 @@ services:
       REGISTRY_HTTP_SECRET: "iuehfio73bt8dobq"
     volumes:
      - "../../../registry/config.yml:/etc/docker/registry/config.yml"
+     - "../../../registry/htpasswd:/htpasswd"
      - "../../../registry/data:/var/lib/registry"
      - "../../../registry/certs:/certs"
-     - "../../../registry/htpasswd:/htpasswd"
   jenkins:
     container_name: class_jenkins_4
     build:
