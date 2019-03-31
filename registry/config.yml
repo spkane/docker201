@@ -2,7 +2,7 @@ version: 0.1
 log:
   accesslog:
     disabled: false
-  level: debug
+  level: info
   fields:
     service: registry
     environment: development
