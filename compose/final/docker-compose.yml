@@ -10,15 +10,13 @@ services:
       - "15432:5432"
     environment:
       POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "myuser-pw!"
+      POSTGRES_PASSWORD: "${MY_PG_PASS}"
       POSTGRES_DB: "gogs"
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres", "-d", "gogs"]
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-     - "../../../postgres/data/data:/var/lib/postgresql/data"
   gogs:
     container_name: class_gogs_4
     image: gogs/gogs:0.11.66
@@ -33,7 +31,6 @@ services:
       - "10022:22"
       - "10080:3000"
     volumes:
-     - "../../../gogs/data:/data"
      - "../../../gogs/logs:/app/gogs/log"
   registry:
     container_name: class_registry_4
