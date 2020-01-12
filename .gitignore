@@ -1,3 +1,4 @@
+sslcert.csr
 .env
 outyet/outyet
 postgres/data/*

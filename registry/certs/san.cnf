@@ -1,0 +1,27 @@
+[ req ]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = v3_req
+
+[req_distinguished_name]
+countryName = Country Name (2 letter code)
+countryName_default = US
+stateOrProvinceName = State or Province Name (full name)
+stateOrProvinceName_default = OR
+localityName = Locality Name (eg, city)
+localityName_default = Portland
+organizationalUnitName	= Organizational Unit Name (eg, section)
+organizationalUnitName_default	= example
+commonName = example.org
+commonName_max	= 64
+
+[ v3_req ]
+# Extensions to add to a certificate request
+basicConstraints = CA:FALSE
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1   = private-registry.localdomain
+DNS.2   = localhost.localdomain
+DNS.3   = localhost
+IP.1    = 127.0.0.1
