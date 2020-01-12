@@ -1,3 +1,4 @@
+.env
 outyet/outyet
 postgres/data/*
 gogs/data/*

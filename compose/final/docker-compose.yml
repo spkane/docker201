@@ -31,7 +31,7 @@ services:
       - "10022:22"
       - "10080:3000"
     volumes:
-     - "../../../gogs/logs:/app/gogs/log"
+     - "../../gogs/logs:/app/gogs/log"
   registry:
     container_name: class_registry_4
     image: registry:2.6.2
@@ -45,10 +45,10 @@ services:
       REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
       REGISTRY_HTTP_SECRET: "iuehfio73bt8dobq"
     volumes:
-     - "../../../registry/config.yml:/etc/docker/registry/config.yml"
-     - "../../../registry/htpasswd:/htpasswd"
-     - "../../../registry/data:/var/lib/registry"
-     - "../../../registry/certs:/certs"
+     - "../../registry/config.yml:/etc/docker/registry/config.yml"
+     - "../../registry/htpasswd:/htpasswd"
+     - "../../registry/data:/var/lib/registry"
+     - "../../registry/certs:/certs"
   jenkins:
     container_name: class_jenkins_4
     build:
@@ -62,7 +62,7 @@ services:
       - "10081:8080"
       - "50000:50000"
     volumes:
-     - "../../../jenkins/data:/var/jenkins_home"
+     - "../../jenkins/data:/var/jenkins_home"
      - "/var/run/docker.sock:/var/run/docker.sock"
 networks:
   my-net:
