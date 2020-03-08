@@ -9,6 +9,8 @@ else
   exit 1
 fi
 
+alias terraform="terraform11"
+
 export managers=$(terraform output  | grep manager | cut -d " " -f 3)
 export workers=$(terraform output  | grep worker | cut -d " " -f 3)
 num=0
