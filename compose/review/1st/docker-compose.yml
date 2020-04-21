@@ -1,7 +1,7 @@
 version: "3"
 services:
   postgres:
-    container_name: class_postgres_1
+    container_name: class_postgres_4
     image: postgres:11.1
     restart: unless-stopped
     networks:
@@ -17,8 +17,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-     - "../../../postgres/data/data:/var/lib/postgresql/data"
 networks:
   my-net:
     driver: bridge

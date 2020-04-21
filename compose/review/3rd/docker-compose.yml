@@ -1,7 +1,7 @@
 version: "3"
 services:
   postgres:
-    container_name: class_postgres_3
+    container_name: class_postgres_4
     image: postgres:11.1
     restart: unless-stopped
     networks:
@@ -17,10 +17,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    volumes:
-     - "../../../postgres/data/data:/var/lib/postgresql/data"
   gogs:
-    container_name: class_gogs_3
+    container_name: class_gogs_4
     image: gogs/gogs:0.11.66
     restart: unless-stopped
     networks:
@@ -33,10 +31,9 @@ services:
       - "10022:22"
       - "10080:3000"
     volumes:
-     - "../../../gogs/data:/data"
      - "../../../gogs/logs:/app/gogs/log"
   registry:
-    container_name: class_registry_3
+    container_name: class_registry_4
     image: registry:2.6.2
     restart: unless-stopped
     networks:
