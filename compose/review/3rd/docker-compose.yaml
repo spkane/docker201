@@ -45,7 +45,7 @@ services:
       REGISTRY_HTTP_TLS_KEY: "/certs/domain.key"
       REGISTRY_HTTP_SECRET: "iuehfio73bt8dobq"
     volumes:
-     - "../../../registry/config.yml:/etc/docker/registry/config.yml"
+     - "../../../registry/config.yaml:/etc/docker/registry/config.yaml"
      - "../../../registry/htpasswd:/htpasswd"
      - "../../../registry/data:/var/lib/registry"
      - "../../../registry/certs:/certs"
