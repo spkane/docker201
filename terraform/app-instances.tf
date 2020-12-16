@@ -1,6 +1,6 @@
 /* Setup our aws provider */
 provider "aws" {
-  profile  = "${var.aws_profile}"
+  profile  = var.aws_profile
   region   = "us-east-1"
 }
 
@@ -9,14 +9,15 @@ data "external" "public_ip" {
 }
 
 resource "aws_instance" "manager" {
-  count         = "${var.swarm_manager_count}"
+  count         = var.swarm_manager_count
   ami           = "ami-5c66ea23"
   instance_type = "m4.large"
-  security_groups = ["${aws_security_group.swarm.name}"]
-  key_name = "${aws_key_pair.deployer.key_name}"
+  security_groups = [aws_security_group.swarm.name]
+  key_name = aws_key_pair.deployer.key_name
   connection {
+    host = self.public_ip
     user = "ubuntu"
-    private_key = "${file(var.ssh_private_key_path)}"
+    private_key = file(var.ssh_private_key_path)
   }
   provisioner "file" {
     source = "./files/startup_options.conf"
@@ -47,23 +48,24 @@ resource "aws_instance" "manager" {
     ]
   }
   tags = {
-    Name = "swarm-manager-${count.index}-skane"
+    Name = "swarm-manager-${count.index}-spkane"
     Trainer = "Sean P. Kane"
   }
 }
 
 resource "aws_instance" "worker" {
-  count         = "${var.swarm_worker_count}"
+  count         = var.swarm_worker_count
   ami           = "ami-5c66ea23"
   instance_type = "m4.large"
-  security_groups = ["${aws_security_group.swarm.name}"]
-  key_name = "${aws_key_pair.deployer.key_name}"
+  security_groups = [aws_security_group.swarm.name]
+  key_name = aws_key_pair.deployer.key_name
   connection {
+    host = self.public_ip
     user = "ubuntu"
-    private_key = "${file(var.ssh_private_key_path)}"
+    private_key = file(var.ssh_private_key_path)
   }
   provisioner "file" {
-    source = "${var.ssh_private_key_path}"
+    source = var.ssh_private_key_path
     destination = "/home/ubuntu/key.pem"
   }
   provisioner "file" {
@@ -89,7 +91,7 @@ resource "aws_instance" "worker" {
     ]
   }
   tags = {
-    Name = "swarm-worker-${count.index}-skane"
+    Name = "swarm-worker-${count.index}-spkane"
     Trainer = "Sean P. Kane"
   }
 }

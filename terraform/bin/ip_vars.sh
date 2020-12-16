@@ -9,12 +9,10 @@ else
   exit 1
 fi
 
-alias terraform="terraform-0-11-14"
-
-export managers=$(terraform-0-11-14 output  | grep manager | cut -d " " -f 3)
-export workers=$(terraform-0-11-14 output  | grep worker | cut -d " " -f 3)
+export managers=$(terraform output  | grep manager | cut -d " " -f 3)
+export workers=$(terraform output  | grep worker | cut -d " " -f 3)
 num=0
-for i in $(echo $managers | sed "s/,/ /g")
+for i in $(echo $managers | sed "s/,/ /g" | sed 's/"/ /g' )
 do
   all_manager_ips[${num}]=${i}
   echo "\${all_manager_ips[${num}]}: ${all_manager_ips[${num}]}"
@@ -24,7 +22,7 @@ export primary_manager_ip=(${all_manager_ips[0]})
 export secondary_manager_ips=(${all_manager_ips[@]:1})
 export worker_ips=()
 num=0
-for i in $(echo $workers | sed "s/,/ /g")
+for i in $(echo $workers | sed "s/,/ /g" | sed 's/"/ /g' )
 do
   worker_ips[${num}]=${i}
   echo "\${worker_ips[${num}]}: ${worker_ips[${num}]}"

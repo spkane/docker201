@@ -5,17 +5,17 @@ variable "aws_profile" {
 
 variable "ssh_private_key_path" {
    description = "Path to EC2 SSH private key"
-    default = "/Users/skane/.ssh/oreilly_aws"
+    default = "/Users/spkane/.ssh/oreilly_aws"
 }
 
 variable "ssh_public_key_path" {
    description = "Path to EC2 SSH public key"
-    default = "/Users/skane/.ssh/oreilly_aws.pub"
+    default = "/Users/spkane/.ssh/oreilly_aws.pub"
 }
 
 #variable "public_ip_path" {
 #   description = "Path to file containing public IP"
-#    default = "/Users/skane/.public_home_ip"
+#    default = "/Users/spkane/.public_home_ip"
 #}
 
 variable "swarm_manager_count" {

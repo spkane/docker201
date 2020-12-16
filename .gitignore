@@ -8,6 +8,7 @@ registry/data/*
 jenkins/data/*
 terraform/terraform.tfstate*
 terraform/.terraform
+terraform/.terraform.lock.hcl
 !postgres/data/.git_keep
 !gogs/data/.git_keep
 !gogs/logs/.git_keep

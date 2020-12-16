@@ -1,6 +1,6 @@
 /* Default security group */
 resource "aws_security_group" "swarm" {
-  name = "swarm-training-skane"
+  name = "swarm-training-spkane"
   description = "Default security group that allows inbound and outbound traffic from all instances in the VPC"
 
   ingress {
@@ -53,8 +53,8 @@ resource "aws_security_group" "swarm" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   
-  tags { 
-    Name = "swarm-training-skane"
+  tags = {
+    Name = "swarm-training-spkane"
     Trainer = "Sean P. Kane"
   }
 }
