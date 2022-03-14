@@ -29,7 +29,7 @@ services:
       - postgres
     ports:
       - "10022:22"
-      - "10080:3000"
+      - "10090:3000"
     volumes:
      - "../../gogs/logs:/app/gogs/log"
   registry:
@@ -51,15 +51,15 @@ services:
      - "../../registry/certs:/certs"
   jenkins:
     container_name: class_jenkins_4
-    build:
-      context: ../../jenkins/docker
+    #build:
+    #  context: ../../jenkins/docker
     # If you can't build, use this image: `spkane/dc-201-jenkins:latest`
-    image: 127.0.0.1:5000/myuser/jenkins-class:latest
+    image: spkane/dc-201-jenkins:latest
     restart: unless-stopped
     networks:
       - my-net
     ports:
-      - "10081:8080"
+      - "10091:8080"
       - "50000:50000"
     volumes:
      - "../../jenkins/data:/var/jenkins_home"

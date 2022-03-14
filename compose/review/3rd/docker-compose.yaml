@@ -29,7 +29,7 @@ services:
       - postgres
     ports:
       - "10022:22"
-      - "10080:3000"
+      - "10090:3000"
     volumes:
      - "../../../gogs/logs:/app/gogs/log"
   registry:
