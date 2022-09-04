@@ -2,6 +2,7 @@
 resource "aws_security_group" "swarm" {
   name = "swarm-training-spkane"
   description = "Default security group that allows inbound and outbound traffic from all instances in the VPC"
+  vpc_id      = data.aws_vpc.default.id
 
   ingress {
     from_port   = "0"
