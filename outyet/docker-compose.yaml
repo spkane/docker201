@@ -1,11 +1,13 @@
-version: "2"
+version: "3"
 services:
   outyet:
-    build:
-      context: .
-    image: outyet:latest
+    #build:
+    #  context: .
+    # We are just going to use the upstream image for demos
+    # however, it would be more accurate to build it from the local code.
+    image: spkane/outyet:latest
     ports:
-      - "10088:18088"
+      - "10088:8080"
     networks:
       - my-net
 networks:

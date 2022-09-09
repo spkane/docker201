@@ -26,7 +26,8 @@ services:
     depends_on:
       # https://docs.docker.com/compose/compose-file/compose-file-v2/#depends_on
       # https://docs.docker.com/compose/compose-file/compose-file-v2/#healthcheck
-      - postgres
+      postgres:
+       condition: service_healthy
     ports:
       - "10022:22"
       - "10090:3000"

@@ -20,7 +20,7 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /
 COPY --from=0 /go/src/outyet/outyet .
 
-EXPOSE 18088
+EXPOSE 8080
 
-CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":18088"]
+CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":8080"]
 

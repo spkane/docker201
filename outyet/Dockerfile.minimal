@@ -19,7 +19,7 @@ WORKDIR /
 COPY --from=0 /go/src/outyet/outyet .
 COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
-EXPOSE 18088
+EXPOSE 8080
 
-CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":18088"]
+CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":8080"]
 
