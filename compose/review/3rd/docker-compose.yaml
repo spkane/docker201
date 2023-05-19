@@ -30,6 +30,8 @@ services:
     ports:
       - "10022:22"
       - "10090:3000"
+    volumes:
+     - "../../gogs/conf:/data/gogs/conf"
   registry:
     container_name: class_registry_4
     image: docker.io/registry:2.8.2
