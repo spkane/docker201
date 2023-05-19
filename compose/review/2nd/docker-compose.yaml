@@ -1,8 +1,7 @@
-version: "3"
 services:
   postgres:
     container_name: class_postgres_4
-    image: postgres:11.1
+    image: docker.io/postgres:15
     restart: unless-stopped
     networks:
       - my-net
@@ -19,7 +18,7 @@ services:
       retries: 5
   gogs:
     container_name: class_gogs_4
-    image: gogs/gogs:0.11.66
+    image: docker.io/gogs/gogs:0.13
     restart: unless-stopped
     networks:
       - my-net
@@ -31,8 +30,6 @@ services:
     ports:
       - "10022:22"
       - "10090:3000"
-    volumes:
-     - "../../../gogs/logs:/app/gogs/log"
 networks:
   my-net:
     driver: bridge
