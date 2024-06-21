@@ -1,4 +1,4 @@
-FROM golang:1.9.4
+FROM golang:1.22.0 as builder
 # Build Image
 
 COPY . /go/src/outyet
@@ -12,14 +12,15 @@ RUN go get -v -d && \
     go test -v && \
     go build -ldflags "-s" -a -installsuffix cgo -o outyet .
 
-FROM scratch
+FROM scratch as deploy
 # Deploy Image
 
 WORKDIR /
-COPY --from=0 /go/src/outyet/outyet .
-COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=builder /go/src/outyet/outyet .
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+# (or) COPY --from=0 /go/src/outyet/outyet .
+# (or) COPY --from=0 /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
 EXPOSE 8080
 
-CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":8080"]
-
+CMD ["/outyet", "-version", "1.22.0", "-poll", "600s", "-http", ":8080"]

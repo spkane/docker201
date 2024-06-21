@@ -1,4 +1,5 @@
-FROM golang:1.9.4
+FROM golang:1.22.0 as builder
+# Build Image
 
 COPY . /go/src/outyet
 WORKDIR /go/src/outyet
@@ -19,4 +20,3 @@ RUN cp /go/src/outyet/outyet .
 EXPOSE 8080
 
 CMD ["/outyet", "-version", "1.9.4", "-poll", "600s", "-http", ":8080"]
-
