@@ -1,4 +1,4 @@
-FROM golang:1.22.0 as builder
+FROM golang:1.22.0 AS builder
 # Build Image
 
 COPY . /go/src/outyet
@@ -12,7 +12,7 @@ RUN go get -v -d && \
     go test -v && \
     go build -ldflags "-s" -a -installsuffix cgo -o outyet .
 
-FROM alpine:latest as deploy
+FROM alpine:latest AS deploy
 # Deploy Image
 
 RUN apk --no-cache add ca-certificates
